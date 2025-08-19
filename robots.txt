@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://yuuzinn.github.io/sitemap.xml
