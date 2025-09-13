@@ -84,12 +84,12 @@ h1 {
 }
 
 .btn.github {
-    border-color: #ff6b6b;
-    color: #ff6b6b;
+    border-color: #000000;
+    color: #000000;
 }
 
 .btn.github:hover {
-    background: #ff6b6b;
+    background: #000000;
     color: #ffffff;
     box-shadow: 4px 4px 0px #cccccc;
 }
