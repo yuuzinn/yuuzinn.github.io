@@ -1,0 +1,279 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background: #ffffff;
+    color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin-bottom: 3rem;
+    color: #000000;
+    text-shadow: 2px 2px 0px #cccccc;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.btn {
+    font-family: 'Press Start 2P', monospace;
+    font-weight: normal;
+    font-size: 0.7rem;
+    padding: 15px 30px;
+    border: 3px solid #000000;
+    background: transparent;
+    color: #000000;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover {
+    background: #000000;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #cccccc;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0px #cccccc;
+}
+
+.btn.github {
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+.btn.github:hover {
+    background: #ff6b6b;
+    color: #ffffff;
+    box-shadow: 4px 4px 0px #cccccc;
+}
+
+.btn.email {
+    border-color: #4ecdc4;
+    color: #4ecdc4;
+}
+
+.btn.email:hover {
+    background: #4ecdc4;
+    color: #ffffff;
+    box-shadow: 4px 4px 0px #cccccc;
+}
+
+.btn.discord {
+    border-color: #7289da;
+    color: #7289da;
+}
+
+.btn.discord:hover {
+    background: #7289da;
+    color: #ffffff;
+    box-shadow: 4px 4px 0px #cccccc;
+}
+
+.box-container {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 100;
+}
+
+.box-image {
+    width: 180px;
+    height: 180px;
+    transition: transform 0.3s ease;
+}
+
+.box-image:hover {
+    transform: scale(1.1);
+}
+
+.skill-card {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffffff;
+    border: 3px solid #000000;
+    border-radius: 0;
+    padding: 20px;
+    min-width: 300px;
+    max-width: 400px;
+    box-shadow: 8px 8px 0px #cccccc;
+    z-index: 200;
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+.skill-card.show {
+    display: block;
+}
+
+.skill-card-header {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: #000000;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 10px;
+}
+
+.skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skill-item {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: #000000;
+    padding: 8px 0;
+    border-bottom: 1px solid #eeeeee;
+    display: flex;
+    align-items: center;
+}
+
+.skill-item:last-child {
+    border-bottom: none;
+}
+
+.skill-category {
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 80px;
+}
+
+.skill-names {
+    flex: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: #000000;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.close-btn:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+.footer {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    color: #666666;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .btn {
+        font-size: 0.5rem;
+        padding: 12px 20px;
+        width: 250px;
+    }
+
+    .box-container {
+        right: 20px;
+    }
+
+    .box-image {
+        width: 130px;
+        height: 130px;
+    }
+
+    .skill-card {
+        right: 20px;
+        min-width: 250px;
+        max-width: 300px;
+        padding: 15px;
+    }
+
+    .skill-card-header {
+        font-size: 0.6rem;
+    }
+
+    .skill-item {
+        font-size: 0.5rem;
+    }
+
+    .skill-category {
+        min-width: 60px;
+    }
+}
+

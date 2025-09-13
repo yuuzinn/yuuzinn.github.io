@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dev_zin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>dntkdgns</h1>
+        <div class="button-container">
+            <a href="https://github.com/yuuzinn" target="_blank" rel="noopener noreferrer" class="btn github">GITHUB</a>
+            <a href="mailto:yyebo0219@gmail.com" class="btn email">yyebo0219@gmail.com</a>
+            <a href="https://discordapp.com/users/395799630106853376" target="_blank" rel="noopener noreferrer" class="btn discord">DISCORD</a>
+        </div>
+    </div>
+
+    <div class="box-container" onclick="toggleSkillCard()">
+        <img src="./box.png" alt="Skills Box" class="box-image">
+    </div>
+
+    <div class="skill-card" id="skillCard">
+        <button class="close-btn" onclick="toggleSkillCard()">×</button>
+        <div class="skill-card-header">SKILLS</div>
+        <ul class="skill-list">
+            <li class="skill-item">
+                <span class="skill-category">BACKEND</span>
+                <span class="skill-names">JAVA, SPRING BOOT, MYSQL</span>
+            </li>
+            <li class="skill-item">
+                <span class="skill-category">TOOLS</span>
+                <span class="skill-names">GIT</span>
+            </li>
+            <li class="skill-item">
+                <span class="skill-category">DATABASE</span>
+                <span class="skill-names">MYSQL</span>
+            </li>
+            <li class="skill-item">
+                <span class="skill-category">ETC</span>
+                <span class="skill-names">LINUX, REST API</span>
+            </li>
+            <li class="skill-item">
+                <span class="skill-category">NOW LEARNING</span>
+                <span class="skill-names">JAVASCRIPT</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <div>SOFT DEVELOPER</div>
+        <div>© 2024 dntkdgns. All rights reserved.</div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
