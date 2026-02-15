@@ -2,59 +2,46 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dev_zin</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <title>dntkdgns</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>dntkdgns</h1>
-        <div class="button-container">
-            <a href="https://github.com/yuuzinn" target="_blank" rel="noopener noreferrer" class="btn github">GITHUB</a>
-            <a href="mailto:yyebo0219@gmail.com" class="btn email">yyebo0219@gmail.com</a>
-            <a href="https://discordapp.com/users/395799630106853376" target="_blank" rel="noopener noreferrer" class="btn discord">DISCORD</a>
-        </div>
-    </div>
+    <main id="main">
+        <header class="h">
+            <div class="visual-container">
+                <div class="cube"></div>
+            </div>
+        </header>
+        <article class="ct">
+            안녕하세요, 저는 우상훈 SOFT ENGINEER입니다.<p>
+            <ins><a>주어진 리소스를 최대한 활용하여 개발하려고 노력합니다.</a></ins><p>
+            요구사항을 신속히 파악하고 빠르게 구현함으로써, 개발 속도와 일정 준수를 통해 프로젝트를 오픈한 경험이 있습니다.
 
-    <div class="box-container" onclick="toggleSkillCard()">
-        <img src="./box.png" alt="Skills Box" class="box-image">
-    </div>
+            <h2>Projects</h2>
+            <ul class="pt">
+                <li><a href="https://anipick.p-e.kr/intro.html" aria-label="anipick" class="dashed-link" target="_blank">Anipick, 애니픽 (2025.04-ing, 운영 중)</a></li>
+                <li><a href="#" aria-label="pollack">Pollack, 대기손님 알림 테이블링 (2023.12-2024.12)</a></li>
+                <li><a href="#" aria-label="newchat">NewChat, 실시간 채팅 서비스 (2023.05-2024.01)</a></li>
+            </ul>
 
-    <div class="skill-card" id="skillCard">
-        <button class="close-btn" onclick="toggleSkillCard()">×</button>
-        <div class="skill-card-header">SKILLS</div>
-        <ul class="skill-list">
-            <li class="skill-item">
-                <span class="skill-category">BACKEND</span>
-                <span class="skill-names">JAVA, SPRING BOOT, MYSQL</span>
-            </li>
-            <li class="skill-item">
-                <span class="skill-category">TOOLS</span>
-                <span class="skill-names">GIT</span>
-            </li>
-            <li class="skill-item">
-                <span class="skill-category">DATABASE</span>
-                <span class="skill-names">MYSQL</span>
-            </li>
-            <li class="skill-item">
-                <span class="skill-category">ETC</span>
-                <span class="skill-names">LINUX, REST API</span>
-            </li>
-            <li class="skill-item">
-                <span class="skill-category">NOW LEARNING</span>
-                <span class="skill-names">JAVA, SPRING FRAMEWORK</span>
-            </li>
-        </ul>
-    </div>
+            <h2>Skills</h2>
+            <ul class="pt">
+                <li><a> BACKEND / JAVA · SPRING BOOT · MYSQL</a></li>
+                <li><a> TOOLS / GIT</a></li>
+                <li><a> DATABASE / MYSQL</a></li>
+                <li><a> ETC / LINUX · REST API</a></li>
+                <li><a> NOW LEARNING / JAVA · SPRING FRAMEWORK</a></li>
+            </ul>
 
-    <div class="footer">
-        <div>SOFT ENGINEER</div>
-        <div>© 2025</span> dntkdgns. All rights reserved.</div>
-    </div>
-
-    <script src="./script.js"></script>
+            <h2>Contact</h2>
+            <p>
+                <a href="https://github.com/yuuzinn" class="dashed-link">github</a> ·  <a href="https://discordapp.com/users/395799630106853376" class="dashed-link" target="_blank">discord</a> ·  <a href="mailto:yyebo0219@gmail.com" class="dashed-link">yyebo0219@gmail.com</a>
+            </p>
+        </article>
+        <footer>
+            <small>✺</small>
+        </footer>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>

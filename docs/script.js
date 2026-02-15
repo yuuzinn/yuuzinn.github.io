@@ -1,66 +1,130 @@
-function toggleSkillCard() {
-    const skillCard = document.getElementById('skillCard');
-    skillCard.classList.toggle('show');
-}
+// Original ASCII Glitch Effect by Bastien Cornier (https://bastiencornier.com)
 
-document.addEventListener('click', function(event) {
-    const skillCard = document.getElementById('skillCard');
-    const boxContainer = document.querySelector('.box-container');
-    
-    if (!skillCard.contains(event.target) && !boxContainer.contains(event.target)) {
-        skillCard.classList.remove('show');
-    }
-});
+const WAVE_THRESH = 3;
+const CHAR_MULT = 3;
+const ANIM_STEP = 40;
+const WAVE_BUF = 5;
 
-document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', function(e) {
-        createParticles(e.target);
+// 'export' 키워드 제거
+const createASCIIShift = (el, opts = {}) => {
+  let origTxt = el.textContent;
+  let origChars = origTxt.split("");
+  let isAnim = false;
+  let cursorPos = 0;
+  let waves = [];
+  let animId = null;
+  let isHover = false;
+  let origW = null;
+
+  const cfg = {
+    dur: 600,
+    chars: '.,·-─~+:;=*π""┐┌┘┴┬╗╔╝╚╬╠╣╩╦║░▒▓█▄▀▌▐■!?&#$@0123456789*',
+    preserveSpaces: true,
+    spread: 0.3,
+    ...opts
+  };
+
+  const updateCursorPos = (e) => {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const len = origTxt.length;
+    const pos = Math.round((x / rect.width) * len);
+    cursorPos = Math.max(0, Math.min(pos, len - 1));
+  };
+
+  const startWave = () => {
+    waves.push({
+      startPos: cursorPos,
+      startTime: Date.now(),
+      id: Math.random()
     });
-});
+    if (!isAnim) start();
+  };
 
-function createParticles(element) {
-    const rect = element.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    for (let i = 0; i < 6; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'fixed';
-        particle.style.width = '4px';
-        particle.style.height = '4px';
-        particle.style.background = getComputedStyle(element).borderColor;
-        particle.style.borderRadius = '50%';
-        particle.style.pointerEvents = 'none';
-        particle.style.zIndex = '1000';
-        particle.style.left = centerX + 'px';
-        particle.style.top = centerY + 'px';
-        
-        document.body.appendChild(particle);
-        
-        const angle = (i / 6) * Math.PI * 2;
-        const velocity = 50 + Math.random() * 30;
-        const deltaX = Math.cos(angle) * velocity;
-        const deltaY = Math.sin(angle) * velocity;
-        
-        particle.animate([
-            { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-            { transform: `translate(${deltaX}px, ${deltaY}px) scale(0)`, opacity: 0 }
-        ], {
-            duration: 600,
-            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-        }).onfinish = () => {
-            particle.remove();
-        };
-    }
-}
+  const cleanupWaves = (t) => {
+    waves = waves.filter((w) => t - w.startTime < cfg.dur);
+  };
 
-document.addEventListener("DOMContentLoaded", () => {
-    const year = new Date().getFullYear();
-    const element = document.getElementById("year");
-    if (element) {
-        element.textContent = year;
-        if (element.tagName.toLowerCase() === "time") {
-            element.setAttribute("datetime", String(year));
+  const calcWaveEffect = (charIdx, t) => {
+    let shouldAnim = false;
+    let resultChar = origChars[charIdx];
+
+    for (const w of waves) {
+      const age = t - w.startTime;
+      const prog = Math.min(age / cfg.dur, 1);
+      const dist = Math.abs(charIdx - w.startPos);
+      const maxDist = Math.max(w.startPos, origChars.length - w.startPos - 1);
+      const rad = (prog * (maxDist + WAVE_BUF)) / cfg.spread;
+
+      if (dist <= rad) {
+        shouldAnim = true;
+        const intens = Math.max(0, rad - dist);
+        if (intens <= WAVE_THRESH && intens > 0) {
+          const cIdx = (dist * CHAR_MULT + Math.floor(age / ANIM_STEP)) % cfg.chars.length;
+          resultChar = cfg.chars[cIdx];
         }
+      }
     }
-})
+    return { shouldAnim, char: resultChar };
+  };
+
+  const genScrambledTxt = (t) =>
+    origChars.map((char, i) => {
+      if (cfg.preserveSpaces && char === " ") return " ";
+      const res = calcWaveEffect(i, t);
+      return res.shouldAnim ? res.char : char;
+    }).join("");
+
+  const stop = () => {
+    el.textContent = origTxt;
+    el.classList.remove("as");
+    if (origW !== null) {
+      el.style.width = "";
+      origW = null;
+    }
+    isAnim = false;
+  };
+
+  const start = () => {
+    if (isAnim) return;
+    if (origW === null) {
+      origW = el.getBoundingClientRect().width;
+      el.style.width = `${origW}px`;
+    }
+    isAnim = true;
+    el.classList.add("as");
+    const animate = () => {
+      const t = Date.now();
+      cleanupWaves(t);
+      if (waves.length === 0) {
+        stop();
+        return;
+      }
+      el.textContent = genScrambledTxt(t);
+      animId = requestAnimationFrame(animate);
+    };
+    animId = requestAnimationFrame(animate);
+  };
+
+  const handleEnter = (e) => { isHover = true; updateCursorPos(e); startWave(); };
+  const handleMove = (e) => { if (!isHover) return; const old = cursorPos; updateCursorPos(e); if (cursorPos !== old) startWave(); };
+  const handleLeave = () => { isHover = false; };
+
+  const init = () => {
+    el.addEventListener("mouseenter", handleEnter);
+    el.addEventListener("mousemove", handleMove);
+    el.addEventListener("mouseleave", handleLeave);
+  };
+
+  init();
+  return { destroy: () => { /* cleanup logic */ } };
+};
+
+// 페이지 로드 후 실행되도록 보장
+document.addEventListener("DOMContentLoaded", () => {
+  const links = document.querySelectorAll("a");
+  links.forEach((link) => {
+    if (!link.textContent.trim()) return;
+    createASCIIShift(link, { dur: 1000, spread: 1 });
+  });
+});
